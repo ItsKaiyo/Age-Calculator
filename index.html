@@ -12,44 +12,72 @@
       100% { background-position: 0% 50%; }
     }
     @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes popupFade {
+      0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
     .animate-bg {
-      background: linear-gradient(-45deg, #5d9ab2, #7fc3d8, #4facfe, #00f2fe);
+      background: linear-gradient(-45deg, #0a192f, #112240, #1e3a8a, #2563eb);
       background-size: 400% 400%;
-      animation: gradientMove 10s ease infinite;
+      animation: gradientMove 15s ease infinite;
     }
     .fade-in-up {
       animation: fadeInUp 1s ease forwards;
     }
     #popup:checked ~ .popup-box {
       display: flex;
+      animation: popupFade 0.4s ease forwards;
+    }
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+    .ripple::after {
+      content: "";
+      position: absolute;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: scale(0);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.5s, opacity 0.5s;
+    }
+    .ripple:active::after {
+      transform: scale(2);
+      opacity: 1;
+      transition: 0s;
     }
   </style>
 </head>
-<body class="min-h-screen animate-bg flex items-center justify-center p-4">
+<body class="min-h-screen animate-bg flex items-center justify-center p-4 text-white">
 
-  <div class="fade-in-up max-w-3xl w-full border border-gray-300 bg-white/30 backdrop-blur-lg rounded-2xl p-8 text-left shadow-2xl transition-transform transform hover:scale-105 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)]">
-    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 drop-shadow-lg">
+  <div class="fade-in-up max-w-3xl w-full border border-blue-400/30 bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-left shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-transform transform hover:scale-105 hover:shadow-[0_0_50px_rgba(37,99,235,0.7)]">
+    <h1 class="text-3xl md:text-4xl font-extrabold mb-4 drop-shadow-lg">
       Age Calculator But Not Finish (Can Be Improved)
     </h1>
-    <p class="text-lg text-gray-800 leading-relaxed drop-shadow-md mb-6">
+    <p class="text-lg leading-relaxed drop-shadow-md mb-6 text-white/90">
       This is a UI test for an age calculator. Features are not yet implemented, but design and interactions are functional for demo purposes.
     </p>
     
-    <label for="popup" class="inline-block px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg active:scale-95 transition-all cursor-pointer">
+    <label for="popup" class="ripple inline-block px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg active:scale-95 transition-all cursor-pointer">
       Try Now
     </label>
     <input type="checkbox" id="popup" class="hidden" />
 
-    <div class="popup-box fixed inset-0 bg-black/50 hidden items-center justify-center">
-      <div class="bg-white p-6 rounded-xl shadow-xl max-w-md w-full relative">
+    <div class="popup-box fixed inset-0 bg-black/60 hidden items-center justify-center backdrop-blur-sm">
+      <div class="bg-white p-6 rounded-xl shadow-2xl max-w-md w-full relative text-gray-800">
         <label for="popup" class="absolute top-3 right-4 text-gray-500 text-xl cursor-pointer hover:text-red-500">&times;</label>
-        <h2 class="text-2xl font-bold mb-4">Enter Your Birth Year</h2>
-        <input type="number" placeholder="e.g. 2000" class="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" />
-        <button class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 active:scale-95 transition-all">Calculate</button>
-        <p class="text-gray-500 mt-3 text-sm italic">This feature is for demonstration only.</p>
+        <h2 class="text-2xl font-bold mb-4 text-center">Enter Your Birth Year</h2>
+        <input type="number" placeholder="e.g. 2000" class="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all" />
+        <button class="ripple w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 active:scale-95 transition-all">Calculate</button>
+        <p class="text-gray-500 mt-3 text-sm italic text-center">This feature is for demonstration only.</p>
       </div>
     </div>
   </div>
